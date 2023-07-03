@@ -7,7 +7,7 @@ function Fleet(props) {
       <div onClick={() => props.whenFleetClicked(props.id)}>
         <h3>{props.name} - {props.faction}</h3>
         <ul>
-          <li>{props.ships}</li>
+          {props.ships}
         </ul>
         <hr />
       </div>
@@ -18,7 +18,7 @@ function Fleet(props) {
 Fleet.propTypes = {
   name: PropTypes.string,
   faction: PropTypes.string,
-  ships: PropTypes.string,
+  ships: PropTypes.array,
   id: PropTypes.string,
   whenFleetClicked: PropTypes.func
 };

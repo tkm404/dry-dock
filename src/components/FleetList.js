@@ -1,11 +1,11 @@
 import React from "react";
-import Fleet from "/.Fleet";
+import Fleet from "./Fleet";
 import PropTypes from "prop-types";
+
 
 function FleetList(props) {
   return (
     <React.Fragment>
-      <hr />
       {props.fleetList.map((fleet) =>
       <Fleet
         whenFleetClicked = { props.onFleetSelection }
