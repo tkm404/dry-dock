@@ -13,22 +13,29 @@ function ShipsToFleetForm(props) {
   return(
     <React.Fragment>
       
-    <form onSubmit={props.onSomething}>
-      <select>
+    <form onSubmit={props.onFinalizeFleet}>
+      <select value={props.shipInput || ""} onChange={props.onShipSelect}>
+        <option value="" disabled={true}>Choose Ships</option>
         {filteredByFaction.map((ships) => <option key={ships.id}>{ships.name}</option>)}
       </select>
-      
 
-<button>Add to Fleet</button>
+      <ul id="ship-selects">
+        <li> </li>
+      </ul>
+      
 <button type="submit">Finalize Fleet</button>
     </form>
+
+    
 </React.Fragment>
   )
 }
 
-
 ShipsToFleetForm.propTypes = {
-  shipsAvailable: PropTypes.arrayOf(PropTypes.object)
+  shipsAvailable: PropTypes.arrayOf(PropTypes.object),
+  shipInput: PropTypes.string,
+  onShipSelect: PropTypes.func
+
 
 }
 

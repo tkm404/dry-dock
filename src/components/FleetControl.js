@@ -18,7 +18,8 @@ class FleetControl extends React.Component {
       mainFleetList: [],
       selectedFleet: null,
       editing: false,
-      userInput: ""
+      userInput: "",
+      selectedShip: null
     };
   }
   handleClick = () => {
@@ -29,12 +30,40 @@ class FleetControl extends React.Component {
   }
   
 
-  handleAddingNewShipsToFleet = (event) => {
+  handleGoToAddShips = (event) => {
     event.preventDefault();
     this.setState({
       addShipsToFleetForm: true, 
       formVisibleOnPage: false})
   }
+
+
+  //-----------------------------------
+
+  handleSelectShipChange = (event) => {
+    this.setState({
+      selectedShip: event.target.value
+    });
+    console.log(event.target.value)
+  }
+
+  // handleAddShipToFleetClick = () => {
+    
+  //   this.setState({
+  //     selectedShip:
+  //   })
+
+  // }
+
+  handleFinalizeFleet = (newFleet) => {
+    const newMainFleetList = this.state.mainFleetList.concat(newFleet);
+    this.setState({
+      mainFleetList: newMainFleetList,
+      formVisibleOnPage: true
+    });
+  }
+
+// -------------------------------------
 
   handleChange = (event) => {
     this.setState({
@@ -192,12 +221,17 @@ class FleetControl extends React.Component {
     let buttonText = null;
 
     if (this.state.addShipsToFleetForm){
-      currentlyVisibleState = <ShipsToFleetForm  shipsAvailable={availableShips} chosenFaction={this.state.userInput}/>
+      currentlyVisibleState = <React.Fragment>
+        <ShipsToFleetForm  onFinalizeFleet={this.handleFinalizeFleet} shipsAvailable={availableShips} chosenFaction={this.state.userInput}
+        onShipSelect={this.handleSelectShipChange} shipInput={this.state.selectedShip}/>
+        <button onClick={this.handleAddShipToFleetClick}>Add Ship to Fleet</button>
+        </React.Fragment>
+      
       buttonText = "Return to Fleet List"
     }
       else if (this.state.formVisibleOnPage){
       currentlyVisibleState = <NewFleetForm onNewFleetCreation=
-      {this.handleAddingNewShipsToFleet} onSelect={this.handleChange} input={this.state.userInput}/>
+      {this.handleGoToAddShips} onSelect={this.handleChange} input={this.state.userInput}/>
       buttonText = "Return to Fleet List"
     } else {
       currentlyVisibleState = <FleetList fleetList={this.state.mainFleetList} onFleetSelection={this.handleChangingSelectedFleet} />;
